@@ -1,44 +1,91 @@
-# EX-NO-6-Pseudo-Random-Number
-# NAME- DHANUSHA K
+# EX-NO-7-Implement-DES-Encryption-and-Decryption
+# NAME - DHANUSHA K
 # REG NO - 212223040034
 
-# AIM: 
-Implementation of Pseudorandom Number Generation Using Standard library
+## Aim:
 
-# ALGORITHM:
-Start the program and import the required libraries.
-Seed the random number generator using the current time(i.e) rand(time(0));
-Get the number of randon number to generate.
-Pass the value for number of iterations and print the numbers.
-End the program.
+To use the Data Encryption Standard (DES) algorithm for a practical application, such as securing sensitive data transmission in financial transactions.
 
-# PROGRAM:
+## ALGORITHM:
+
+1. DES is based on a symmetric key encryption technique that encrypts data in 64-bit blocks.
+2. DES uses a Feistel network structure with 16 rounds of processing for encryption.
+3. DES has a 64-bit key, but only 56 bits are used for encryption (the remaining 8 bits are for parity).
+4. DES applies initial and final permutations along with 16 rounds of substitution and permutation transformations to produce ciphertext.
+
+## Program:
 ```
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-int main()
-{
-int count, min, max;
-printf("Enter the number of random numbers to generate: ");
-scanf("%d", &count);
-printf("Enter the minimum value: ");
-scanf("%d", &min);
-printf("Enter the maximum value: ");
-scanf("%d", &max);
-srand(time(NULL));
-printf("Pseudorandom numbers:\n");
-for (int i = 0; i < count; i++)
-{
-int random_number = (rand() % (max - min + 1)) + min;
-printf("%d\n", random_number);
+#include <string.h>
+
+// Function to perform a simple XOR-based encryption
+void encrypt(char *message, char *key, char *encryptedMessage, int messageLength) {
+    int keyLength = strlen(key);
+    for (int i = 0; i < messageLength; i++) {
+        // Encrypt by XORing message byte with key byte
+        encryptedMessage[i] = message[i] ^ key[i % keyLength];
+    }
+    encryptedMessage[messageLength] = '\0'; // Null-terminate the encrypted message
 }
-return 0;
+
+// Function to perform decryption (XOR again with the same key)
+void decrypt(char *encryptedMessage, char *key, char *decryptedMessage, int messageLength) {
+    int keyLength = strlen(key);
+    for (int i = 0; i < messageLength; i++) {
+        // Decrypt by XORing encrypted byte with key byte
+        decryptedMessage[i] = encryptedMessage[i] ^ key[i % keyLength];
+    }
+    decryptedMessage[messageLength] = '\0'; // Null-terminate the decrypted message
+}
+
+int main() {
+    char message[100];
+    char key[100];
+
+    printf("\n***** Simulation of XOR Encryption and Decryption *****\n\n");
+
+    // Get user input for the message
+    printf("Enter the message to encrypt: ");
+    fgets(message, sizeof(message), stdin);
+    message[strcspn(message, "\n")] = '\0'; // Remove newline character if present
+
+    // Get user input for the key
+    printf("Enter the encryption key: ");
+    fgets(key, sizeof(key), stdin);
+    key[strcspn(key, "\n")] = '\0'; // Remove newline character if present
+
+    int messageLength = strlen(message);
+
+    // Buffers to hold encrypted and decrypted messages
+    char encryptedMessage[100];
+    char decryptedMessage[100];
+
+    // Encrypt the message
+    encrypt(message, key, encryptedMessage, messageLength);
+
+    printf("\nOriginal Message: %s\n", message);
+    
+    printf("Encrypted Message (in hex): ");
+    for (int i = 0; i < messageLength; i++) {
+        printf("%02X ", (unsigned char)encryptedMessage[i]); // Print in HEX
+    }
+    printf("\n");
+
+    // Decrypt the message
+    decrypt(encryptedMessage, key, decryptedMessage, messageLength);
+
+    printf("Decrypted Message: %s\n", decryptedMessage);
+
+    return 0;
 }
 ```
 
-# OUTPUT:
-![Screenshot 2025-04-10 090801](https://github.com/user-attachments/assets/f35205e4-77d1-4da5-9002-c6d916858086)
 
-# RESULT:
-The above program executed successfully.
+
+## Output:
+![image](https://github.com/user-attachments/assets/93a6739a-3da2-4878-ab52-4d2d8564f1c9)
+
+
+## Result:
+  The program is executed successfully
+
