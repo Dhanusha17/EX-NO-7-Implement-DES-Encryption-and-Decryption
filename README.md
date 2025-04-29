@@ -1,6 +1,6 @@
 # EX-NO-6-Pseudo-Random-Number
-# NAME- ARULARASI U
-# REG NO - 212223100002
+# NAME- DHANUSHA K
+# REG NO - 212223040034
 
 # AIM: 
 Implementation of Pseudorandom Number Generation Using Standard library
